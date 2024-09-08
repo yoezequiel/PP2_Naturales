@@ -6,7 +6,7 @@ font = pygame.font.Font("assets/fonts/MoreSugar-Regular.ttf", 26)
 font_button = pygame.font.Font("assets/fonts/OpenSans-Bold.ttf", 43)
 width = 800
 height = 600
-button = pygame.Rect((width // 2 - 200, height // 2), (436, 101))
+button = pygame.Rect((width // 2 - 224, height // 2), (436, 101))
 
 
 name = "Cuerpo Humano"
