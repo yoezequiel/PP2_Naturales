@@ -3,6 +3,8 @@ import random
 from src.config import *
 
 pygame.init()
+pygame.mixer.init()
+
 
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption(name)
@@ -10,6 +12,8 @@ pygame.display.set_caption(name)
 background_start = pygame.image.load(img_start)
 sound_button = pygame.mixer.Sound(sound_button_dir)
 check = pygame.mixer.Sound(check_sound)
+pygame.mixer.music.load(background_sound_dir)
+pygame.mixer.music.play(-1)
 
 
 def draw_button():
