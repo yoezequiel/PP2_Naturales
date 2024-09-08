@@ -47,6 +47,7 @@ dragging, dragging_part = False, None
 placed_correctly = {part: False for part in images}
 
 font = pygame.font.Font(None, 74)
+coord_font = pygame.font.Font(None, 36)
 
 while True:
     for event in pygame.event.get():
@@ -80,4 +81,13 @@ while True:
     if all(placed_correctly.values()):
         text = font.render("¡Wiiin!", True, GREEN)
         window.blit(text, (300, 250))
+    
+
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+    coord_text = coord_font.render(f"Coords: {mouse_x}, {mouse_y}", True, WHITE)
+    
+
+    coord_rect = coord_text.get_rect(bottomright=(width - 10, height - 10))
+    window.blit(coord_text, coord_rect)
+
     pygame.display.update()

@@ -2,6 +2,7 @@ import pygame
 import sys
 
 pygame.init()
+pygame.joystick.init()  # Inicializa el sistema de joystick
 
 width, height = 800, 600
 window = pygame.display.set_mode((width, height))
@@ -12,6 +13,7 @@ BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 BACKGROUND = (51, 51, 51)
 
+# Cargar imágenes
 head = pygame.image.load("head.png")
 body = pygame.image.load("body.png")
 left_arm = pygame.image.load("left_arm.png")
@@ -21,7 +23,6 @@ right_leg = pygame.image.load("leg.png")
 
 right_arm = pygame.transform.flip(left_arm, True, False)
 left_leg = pygame.transform.flip(left_leg, True, False)
-
 
 initial_positions = {
     "head": (50, 50),
@@ -77,6 +78,18 @@ placed_correctly = {
 }
 
 font = pygame.font.Font(None, 74)
+coord_font = pygame.font.Font(None, 36)
+
+# Inicializar joystick
+if pygame.joystick.get_count() > 0:
+    joystick = pygame.joystick.Joystick(0)
+    joystick.init()
+    print(f"Usando joystick: {joystick.get_name()}")
+else:
+    joystick = None
+    print("No se detectó ningún joystick.")
+
+joystick_speed = 5  # Velocidad de movimiento con el mando
 
 while True:
     for event in pygame.event.get():
@@ -120,6 +133,16 @@ while True:
                 part_rect = eval(f"{dragging_part}_rect")
                 part_rect.move_ip(event.rel)
 
+    # Manejar el movimiento con el joystick
+    if joystick:
+        axis_x = joystick.get_axis(0)  # Eje X del stick izquierdo
+        axis_y = joystick.get_axis(1)  # Eje Y del stick izquierdo
+
+        if dragging:
+            part_rect = eval(f"{dragging_part}_rect")
+            part_rect.x += int(axis_x * joystick_speed)
+            part_rect.y += int(axis_y * joystick_speed)
+
     window.fill(BACKGROUND)
 
     pygame.draw.rect(window, BLACK, head_target, 3)
@@ -139,5 +162,10 @@ while True:
     if all(placed_correctly.values()):
         text = font.render("¡Wiiin!", True, GREEN)
         window.blit(text, (300, 250))
+
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+    coord_text = coord_font.render(f"Coords: {mouse_x}, {mouse_y}", True, WHITE)
+    coord_rect = coord_text.get_rect(bottomright=(width - 10, height - 10))
+    window.blit(coord_text, coord_rect)
 
     pygame.display.update()
