@@ -8,6 +8,8 @@ window = pygame.display.set_mode((width, height))
 pygame.display.set_caption(name)
 
 background_start = pygame.image.load(img_start)
+sound_button = pygame.mixer.Sound(sound_button_dir)
+check = pygame.mixer.Sound(check_sound)
 
 
 def draw_button():
@@ -24,6 +26,7 @@ def start_screen():
                 pygame.quit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if button.collidepoint(event.pos):
+                    sound_button.play()
                     return
 
         window.blit(background_start, (0, 0))
@@ -66,6 +69,7 @@ def handle_event(event):
         if dragging_word and targets[dragging_word].colliderect(rects[dragging_word]):
             rects[dragging_word].topleft = targets[dragging_word].topleft
             placed_correctly[dragging_word] = True
+            check.play()
             current_word_index += 1
             if current_word_index < len(words):
                 rects[words[current_word_index]].topleft = initial_position

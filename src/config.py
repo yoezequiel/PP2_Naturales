@@ -7,10 +7,14 @@ font_button = pygame.font.Font("assets/fonts/OpenSans-Bold.ttf", 43)
 width = 800
 height = 600
 button = pygame.Rect((width // 2 - 200, height // 2), (436, 101))
+
+
 name = "Cuerpo Humano"
 img_start = "assets/img/Inicio.png"
 img_game = "assets/img/Juego.png"
 img_end = "assets/img/Final.png"
+sound_button_dir = "assets/sound/button.wav"
+check_sound = "assets/sound/check.mp3"
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
