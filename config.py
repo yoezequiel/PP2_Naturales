@@ -1,22 +1,36 @@
 import pygame
+import os
+import sys
 
 pygame.init()
 
-font = pygame.font.Font("assets/fonts/MoreSugar-Regular.ttf", 26)
-font_button = pygame.font.Font("assets/fonts/OpenSans-Bold.ttf", 43)
 width = 800
 height = 600
 button = pygame.Rect((width // 2 - 224, height // 2), (436, 101))
 
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
+image_path = resource_path("assets/my_image.png")
+
+font = pygame.font.Font(resource_path("assets/fonts/MoreSugar-Regular.ttf"), 26)
+font_button = pygame.font.Font(resource_path("assets/fonts/OpenSans-Bold.ttf"), 43)
 name = "Cuerpo Humano"
-img_start = "assets/img/Inicio.png"
-img_game = "assets/img/Juego.png"
-img_end = "assets/img/Final.png"
-sound_button_dir = "assets/sound/button.wav"
-check_sound = "assets/sound/check.mp3"
-background_sound_dir = "assets/sound/background.mp3"
-win_sound = "assets/sound/win.wav"
+img_start = resource_path("assets/img/Inicio.png")
+img_game = resource_path("assets/img/Juego.png")
+img_end = resource_path("assets/img/Final.png")
+sound_button_dir = resource_path("assets/sound/button.wav")
+check_sound = resource_path("assets/sound/check.mp3")
+background_sound_dir = resource_path("assets/sound/background.mp3")
+win_sound = resource_path("assets/sound/win.wav")
+
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

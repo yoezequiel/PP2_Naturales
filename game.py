@@ -33,7 +33,10 @@ def draw_button(button_hovered, button_clicked):
         text = font_button.render("JUGAR", True, BUTTON_FONT)
         text_rect = text.get_rect(center=button_rect.center)
     elif button_hovered:
-        font_hover = pygame.font.Font("assets/fonts/OpenSans-Bold.ttf", 48)
+        font_hover = pygame.font.Font(
+            resource_path("assets/fonts/OpenSans-Bold.ttf"), 43
+        )
+
         text = font_hover.render("JUGAR", True, BUTTON_FONT)
         text_rect = text.get_rect(center=button_rect.center)
     else:
@@ -52,7 +55,6 @@ def start_screen():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-
             elif event.type == pygame.MOUSEMOTION:
                 if button.collidepoint(event.pos):
                     button_hovered = True
@@ -99,6 +101,7 @@ def handle_event(event):
 
     if event.type == pygame.QUIT:
         pygame.quit()
+        running = False
 
     elif event.type == pygame.MOUSEBUTTONDOWN:
         if not dragging:
@@ -144,7 +147,8 @@ def draw_elements():
     pygame.display.update()
 
 
-while True:
+running = True
+while running:
     for event in pygame.event.get():
         handle_event(event)
     draw_elements()
