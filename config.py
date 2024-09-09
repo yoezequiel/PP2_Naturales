@@ -16,6 +16,7 @@ img_end = "assets/img/Final.png"
 sound_button_dir = "assets/sound/button.wav"
 check_sound = "assets/sound/check.mp3"
 background_sound_dir = "assets/sound/background.mp3"
+win_sound = "assets/sound/win.wav"
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
