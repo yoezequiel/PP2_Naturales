@@ -1,16 +1,8 @@
 import pygame
 import sqlite3
+from config import *
 
 pygame.init()
-
-ANCHO, ALTO = 800, 600
-ventana = pygame.display.set_mode((ANCHO, ALTO))
-pygame.display.set_caption("Menú Principal")
-
-BLANCO = (255, 255, 255)
-NEGRO = (0, 0, 0)
-
-fuente = pygame.font.Font(None, 36)
 
 
 def conectar_db():
@@ -67,7 +59,7 @@ def cuadro_texto():
     dni = ""
     activo = True
     while activo:
-        ventana.fill(BLANCO)
+        ventana.fill(BG)
 
         mostrar_texto("Ingrese su DNI:", 100, 100)
 
@@ -104,7 +96,7 @@ def panel_administracion():
     activo = True
     opcion = ""
     while activo:
-        ventana.fill(BLANCO)
+        ventana.fill(BG)
         mostrar_texto("Panel de Administración", 100, 100)
         mostrar_texto("1. Cargar Alumno", 100, 200)
         mostrar_texto("2. Eliminar Alumno", 100, 250)
@@ -189,7 +181,7 @@ def input_texto(mensaje):
     activo = True
     texto = ""
     while activo:
-        ventana.fill(BLANCO)
+        ventana.fill(BG)
         mostrar_texto(mensaje, 100, 100)
         texto_ingresado = fuente.render(texto, True, NEGRO)
         ventana.blit(texto_ingresado, (100, 200))
