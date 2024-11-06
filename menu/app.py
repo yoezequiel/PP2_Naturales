@@ -1,45 +1,46 @@
 import pygame
+import subprocess
+from db import conectar_db, verificar_dni
 from config import *
-from db import *
 
 pygame.init()
 
-
-def verificar_dni(dni):
-    conn = conectar_db()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM alumnos WHERE dni=?", (dni,))
-    alumno = cursor.fetchone()
-
-    if alumno:
-        return "alumno", alumno
-
-    cursor.execute("SELECT * FROM admins WHERE dni=?", (dni,))
-    admin = cursor.fetchone()
-
-    if admin:
-        return "admin", admin
-
-    conn.close()
-    return None, None
+fuente = pygame.font.Font(None, 36)
 
 
-def mostrar_texto(texto, x, y):
-    texto_superficie = fuente.render(texto, True, NEGRO)
+def mostrar_texto(texto, x, y, color=NEGRO):
+    texto_superficie = fuente.render(texto, True, color)
     ventana.blit(texto_superficie, (x, y))
 
 
 def cuadro_texto():
     dni = ""
+    cursor_visible = True
+    cursor_tiempo = pygame.time.get_ticks()
     activo = True
+    mensaje_error = ""
+
     while activo:
         ventana.fill(BG)
-
         mostrar_texto("Ingrese su DNI:", 100, 100)
+        pygame.draw.rect(ventana, BLANCO, (100, 200, 200, 40), 2)
 
         texto_ingresado = fuente.render(dni, True, NEGRO)
-        ventana.blit(texto_ingresado, (100, 200))
+        ventana.blit(texto_ingresado, (110, 210))
+        if cursor_visible:
+            pygame.draw.line(
+                ventana,
+                NEGRO,
+                (110 + texto_ingresado.get_width(), 210),
+                (110 + texto_ingresado.get_width(), 240),
+            )
+
+        if pygame.time.get_ticks() - cursor_tiempo > 500:
+            cursor_visible = not cursor_visible
+            cursor_tiempo = pygame.time.get_ticks()
+
+        if mensaje_error:
+            mostrar_texto(mensaje_error, 100, 300, ROJO)
 
         pygame.display.flip()
 
@@ -50,21 +51,27 @@ def cuadro_texto():
                 if evento.key == pygame.K_RETURN:
                     tipo, datos = verificar_dni(dni)
                     if tipo == "alumno":
-                        print(
-                            f"Bienvenido {datos[1]} {datos[2]}, te dirigimos a tu juego."
-                        )
+                        iniciar_juego_por_anio(datos[3])
                         return
                     elif tipo == "admin":
                         print(f"Bienvenido administrador {datos[0]}")
                         panel_administracion()
                         return
                     else:
-                        print("DNI no encontrado")
+                        mensaje_error = "DNI no encontrado"
                         dni = ""
                 elif evento.key == pygame.K_BACKSPACE:
                     dni = dni[:-1]
                 else:
                     dni += evento.unicode
+
+
+def iniciar_juego_por_anio(anio):
+    try:
+        juego_file = f"juego{anio}/game.py"
+        subprocess.run(["python", juego_file])
+    except FileNotFoundError:
+        print(f"No se encontró el archivo {juego_file} para el año {anio}.")
 
 
 def panel_administracion():
@@ -87,8 +94,7 @@ def panel_administracion():
                 if evento.key == pygame.K_ESCAPE:
                     activo = False
                 elif evento.unicode in ["1", "2", "3", "4"]:
-                    opcion = evento.unicode
-                    ejecutar_opcion_panel(opcion)
+                    ejecutar_opcion_panel(evento.unicode)
 
 
 def ejecutar_opcion_panel(opcion):
@@ -106,7 +112,7 @@ def cargar_alumno():
     dni = input_texto("Ingrese el DNI del alumno: ")
     nombre = input_texto("Ingrese el nombre del alumno: ")
     apellido = input_texto("Ingrese el apellido del alumno: ")
-    anio = input_texto("Ingrese el año del alumno: ")
+    anio = input_texto("Ingrese el año del alumno (1-3): ")
 
     conn = conectar_db()
     cursor = conn.cursor()
@@ -175,7 +181,6 @@ def input_texto(mensaje):
 
 
 def main():
-    crear_tablas()
     cuadro_texto()
 
 

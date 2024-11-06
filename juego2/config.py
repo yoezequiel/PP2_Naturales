@@ -27,31 +27,35 @@ RED = (255, 0, 0)
 clock = pygame.time.Clock()
 FPS = 60
 
-background = pygame.image.load("assets/img/forest.png")
+background = pygame.image.load("juego2/assets/img/forest.png")
 
 trash_images = {
-    "plastico": pygame.image.load("assets/img/plastico.png"),
-    "vidrio": pygame.image.load("assets/img/vidrio.png"),
-    "papel": pygame.image.load("assets/img/papel.png"),
-    "organico": pygame.image.load("assets/img/organico.png"),
+    "plastico": pygame.image.load("juego2/assets/img/plastico.png"),
+    "vidrio": pygame.image.load("juego2/assets/img/vidrio.png"),
+    "papel": pygame.image.load("juego2/assets/img/papel.png"),
+    "organico": pygame.image.load("juego2/assets/img/organico.png"),
 }
 recycle_bins = {
-    "plastico": pygame.image.load("assets/img/contenedor_plastico.png"),
-    "vidrio": pygame.image.load("assets/img/contenedor_vidrio.png"),
-    "papel": pygame.image.load("assets/img/contenedor_papel.png"),
-    "organico": pygame.image.load("assets/img/contenedor_organico.png"),
+    "plastico": pygame.image.load("juego2/assets/img/contenedor_plastico.png"),
+    "vidrio": pygame.image.load("juego2/assets/img/contenedor_vidrio.png"),
+    "papel": pygame.image.load("juego2/assets/img/contenedor_papel.png"),
+    "organico": pygame.image.load("juego2/assets/img/contenedor_organico.png"),
 }
-font_button = pygame.font.Font(resource_path("assets/fonts/OpenSans-Bold.ttf"), 43)
-image_path = resource_path("assets/my_image.png")
+font_button = pygame.font.Font(
+    resource_path("juego2/assets/fonts/OpenSans-Bold.ttf"), 43
+)
+image_path = resource_path("juego2/assets/my_image.png")
 
-font = pygame.font.Font(resource_path("assets/fonts/MoreSugar-Regular.ttf"), 26)
-font_button = pygame.font.Font(resource_path("assets/fonts/OpenSans-Bold.ttf"), 43)
-img_start = resource_path("assets/img/Inicio.png")
-img_game = resource_path("assets/img/Juego.png")
-img_end = resource_path("assets/img/Final.png")
-sound_button_dir = resource_path("assets/sound/button.wav")
-check_sound = resource_path("assets/sound/check.mp3")
-background_sound_dir = resource_path("assets/sound/background.mp3")
-win_sound = resource_path("assets/sound/win.wav")
+font = pygame.font.Font(resource_path("juego2/assets/fonts/MoreSugar-Regular.ttf"), 26)
+font_button = pygame.font.Font(
+    resource_path("juego2/assets/fonts/OpenSans-Bold.ttf"), 43
+)
+img_start = resource_path("juego2/assets/img/Inicio.png")
+img_game = resource_path("juego2/assets/img/Juego.png")
+img_end = resource_path("juego2/assets/img/Final.png")
+sound_button_dir = resource_path("juego2/assets/sound/button.wav")
+check_sound = resource_path("juego2/assets/sound/check.mp3")
+background_sound_dir = resource_path("juego2/assets/sound/background.mp3")
+win_sound = resource_path("juego2/assets/sound/win.wav")
 button = pygame.Rect((WIDTH // 2 - 224, HEIGHT // 3.2), (436, 101))
 trash_count = 20
