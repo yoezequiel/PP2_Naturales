@@ -33,7 +33,7 @@ def draw_button(button_hovered, button_clicked):
         text = font_button.render("JUGAR", True, BUTTON_FONT)
         text_rect = text.get_rect(center=button_rect.center)
     elif button_hovered:
-        font_hover = pygame.font.Font("assets/fonts/OpenSans-Bold.ttf", 48)
+        font_hover = pygame.font.Font("juego1/assets/fonts/OpenSans-Bold.ttf", 48)
         text = font_hover.render("JUGAR", True, BUTTON_FONT)
         text_rect = text.get_rect(center=button_rect.center)
     else:

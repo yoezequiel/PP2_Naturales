@@ -2,21 +2,21 @@ import pygame
 
 pygame.init()
 
-font = pygame.font.Font("assets/fonts/MoreSugar-Regular.ttf", 26)
-font_button = pygame.font.Font("assets/fonts/OpenSans-Bold.ttf", 43)
+font = pygame.font.Font("juego1/assets/fonts/MoreSugar-Regular.ttf", 26)
+font_button = pygame.font.Font("juego1/assets/fonts/OpenSans-Bold.ttf", 43)
 width = 800
 height = 600
 button = pygame.Rect((width // 2 - 224, height // 2), (436, 101))
 
 
 name = "Cuerpo Humano"
-img_start = "assets/img/Inicio.png"
-img_game = "assets/img/Juego.png"
-img_end = "assets/img/Final.png"
-sound_button_dir = "assets/sound/button.wav"
-check_sound = "assets/sound/check.mp3"
-background_sound_dir = "assets/sound/background.mp3"
-win_sound = "assets/sound/win.wav"
+img_start = "juego1/assets/img/Inicio.png"
+img_game = "juego1/assets/img/Juego.png"
+img_end = "juego1/assets/img/Final.png"
+sound_button_dir = "juego1/assets/sound/button.wav"
+check_sound = "juego1/assets/sound/check.mp3"
+background_sound_dir = "juego1/assets/sound/background.mp3"
+win_sound = "juego1/assets/sound/win.wav"
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
