@@ -85,11 +85,31 @@ def start_screen():
 start_screen()
 
 
+def add_outline(image, outline_color=(0, 0, 0), thickness=1):
+    mask = pygame.mask.from_surface(image)
+    outline_image = pygame.Surface(
+        (image.get_width() + 2 * thickness, image.get_height() + 2 * thickness),
+        pygame.SRCALPHA,
+    )
+
+    for dx in range(-thickness, thickness + 1):
+        for dy in range(-thickness, thickness + 1):
+            if dx != 0 or dy != 0:
+                mask_outline = mask.to_surface(
+                    setcolor=outline_color, unsetcolor=(0, 0, 0, 0)
+                )
+                outline_image.blit(mask_outline, (dx + thickness, dy + thickness))
+
+    outline_image.blit(image, (thickness, thickness))
+    return outline_image
+
+
 class Trash(pygame.sprite.Sprite):
     def __init__(self, trash_type):
         super().__init__()
         self.trash_type = trash_type
-        self.image = pygame.transform.scale(trash_images[trash_type], (60, 70))
+        original_image = pygame.transform.scale(trash_images[trash_type], (60, 70))
+        self.image = add_outline(original_image, outline_color=(0, 0, 0), thickness=3)
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, WIDTH - 30)
         self.rect.y = random.randint(0, HEIGHT - 30)
@@ -167,6 +187,7 @@ while running:
                         if selected_trash.trash_type == bin.bin_type:
                             selected_trash.kill()
                             placed_correctly[selected_trash] = True
+                            correct_sound.play()
                             selected_trash = None
                         else:
                             error_message = "¡Contenedor incorrecto!"

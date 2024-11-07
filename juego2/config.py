@@ -59,3 +59,4 @@ background_sound_dir = resource_path("juego2/assets/sound/background.mp3")
 win_sound = resource_path("juego2/assets/sound/win.wav")
 button = pygame.Rect((WIDTH // 2 - 224, HEIGHT // 3.2), (436, 101))
 trash_count = 20
+correct_sound = pygame.mixer.Sound(check_sound)

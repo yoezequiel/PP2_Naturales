@@ -10,4 +10,3 @@ BLANCO = (255, 255, 255)
 ROJO = (200, 50, 50)
 BG = (173, 216, 230)
 
-fuente = pygame.font.Font(None, 36)
