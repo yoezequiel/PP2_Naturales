@@ -74,38 +74,65 @@ def iniciar_juego_por_anio(anio):
         print(f"No se encontró el archivo {juego_file} para el año {anio}.")
 
 
+opciones = [
+    "Cargar Alumno",
+    "Eliminar Alumno",
+    "Cargar Admin",
+    "Eliminar Admin",
+    "Ver Usuarios",
+    "Salir",
+]
+
+
 def panel_administracion():
     activo = True
-    opcion = ""
+    opcion_seleccionada = 0
     while activo:
-        ventana.fill(BG)
-        mostrar_texto("Panel de Administración", 100, 100)
-        mostrar_texto("1. Cargar Alumno", 100, 200)
-        mostrar_texto("2. Eliminar Alumno", 100, 250)
-        mostrar_texto("3. Cargar Admin", 100, 300)
-        mostrar_texto("4. Eliminar Admin", 100, 350)
-        mostrar_texto("Presione ESC para salir", 100, 400)
+        ventana.fill(COLOR_FONDO)
+
+        mostrar_texto("Panel de Administración", 100, 50, COLOR_TEXTO)
+
+        for i, opcion in enumerate(opciones):
+            if i == opcion_seleccionada:
+                color_fondo = COLOR_SELECCION
+                color_texto = COLOR_BOTON_TEXTO
+            else:
+                color_fondo = COLOR_BOTON
+                color_texto = COLOR_TEXTO
+
+            pygame.draw.rect(ventana, color_fondo, (100, 150 + i * 50, 400, 40))
+            mostrar_texto(opcion, 120, 160 + i * 50, color_texto)
+
         pygame.display.flip()
 
+        # Eventos
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 activo = False
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_ESCAPE:
                     activo = False
-                elif evento.unicode in ["1", "2", "3", "4"]:
-                    ejecutar_opcion_panel(evento.unicode)
+                elif evento.key == pygame.K_DOWN:
+                    opcion_seleccionada = (opcion_seleccionada + 1) % len(opciones)
+                elif evento.key == pygame.K_UP:
+                    opcion_seleccionada = (opcion_seleccionada - 1) % len(opciones)
+                elif evento.key == pygame.K_RETURN:
+                    ejecutar_opcion_panel(opcion_seleccionada)
 
 
-def ejecutar_opcion_panel(opcion):
-    if opcion == "1":
+def ejecutar_opcion_panel(opcion_seleccionada):
+    if opcion_seleccionada == 0:
         cargar_alumno()
-    elif opcion == "2":
+    elif opcion_seleccionada == 1:
         eliminar_alumno()
-    elif opcion == "3":
+    elif opcion_seleccionada == 2:
         cargar_admin()
-    elif opcion == "4":
+    elif opcion_seleccionada == 3:
         eliminar_admin()
+    elif opcion_seleccionada == 4:
+        ver_usuarios()
+    elif opcion_seleccionada == 5:
+        pygame.quit()
 
 
 def cargar_alumno():
@@ -158,13 +185,59 @@ def eliminar_admin():
     print("Admin eliminado exitosamente.")
 
 
+def ver_usuarios():
+    conn = conectar_db()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT dni, nombre, apellido, anio FROM alumnos")
+    alumnos = cursor.fetchall()
+
+    cursor.execute("SELECT dni FROM admins")
+    admins = cursor.fetchall()
+
+    conn.close()
+
+    ventana.fill(COLOR_FONDO)
+    mostrar_texto("Usuarios Registrados:", 100, 50, COLOR_TEXTO)
+
+    y_offset = 100
+    mostrar_texto("Alumnos:", 100, y_offset, COLOR_TEXTO)
+    y_offset += 40
+    for alumno in alumnos:
+        mostrar_texto(
+            f"DNI: {alumno[0]}, Nombre: {alumno[1]} {alumno[2]}, Año: {alumno[3]}",
+            100,
+            y_offset,
+            COLOR_TEXTO,
+        )
+        y_offset += 40
+
+    mostrar_texto("Administradores:", 100, y_offset, COLOR_TEXTO)
+    y_offset += 40
+    for admin in admins:
+        mostrar_texto(f"DNI: {admin[0]}", 100, y_offset, COLOR_TEXTO)
+        y_offset += 40
+
+    pygame.display.flip()
+
+    esperando = True
+    while esperando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                esperando = False
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_ESCAPE:
+                    esperando = False
+                    panel_administracion()
+
+
 def input_texto(mensaje):
     activo = True
     texto = ""
     while activo:
-        ventana.fill(BG)
+        ventana.fill(COLOR_FONDO)
         mostrar_texto(mensaje, 100, 100)
-        texto_ingresado = fuente.render(texto, True, NEGRO)
+        texto_ingresado = fuente.render(texto, True, COLOR_TEXTO)
         ventana.blit(texto_ingresado, (100, 200))
         pygame.display.flip()
 
