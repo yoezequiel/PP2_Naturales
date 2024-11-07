@@ -139,7 +139,7 @@ def cargar_alumno():
     dni = input_texto("Ingrese el DNI del alumno: ")
     nombre = input_texto("Ingrese el nombre del alumno: ")
     apellido = input_texto("Ingrese el apellido del alumno: ")
-    anio = input_texto("Ingrese el año del alumno (1-3): ")
+    anio = input_texto("Ingrese el año del alumno (1-7): ")
 
     conn = conectar_db()
     cursor = conn.cursor()

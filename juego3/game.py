@@ -140,6 +140,7 @@ def run_game():
     score = 0
     answering = True
     selected_option = None
+    win_sound_played = False
 
     while answering:
         for event in pygame.event.get():
@@ -164,9 +165,6 @@ def run_game():
                     question_index += 1
                     selected_option = None
 
-                if question_index == len(questions):
-                    answering = False
-
         if question_index < len(questions):
             question = questions[question_index]["question"]
             options = questions[question_index]["options"]
@@ -174,8 +172,7 @@ def run_game():
         else:
             img_end = "juego1/assets/img/Final.png"
             background_game = pygame.image.load(img_end)
-            end_sound = pygame.mixer.Sound("juego3/assets/sound/check.mp3")
-            end_sound.play()
+            pygame.mixer.music.stop()
             window.blit(background_game, (0, 0))
             draw_text(
                 f"Tu puntuación final: {score}/{len(questions)}",
@@ -185,8 +182,12 @@ def run_game():
                 200,
                 250,
             )
-            pygame.display.update()
-            pygame.time.wait(10000)
+            if not win_sound_played:
+                win.set_volume(0.1)
+                win.play()
+                win_sound_played = True
+        pygame.display.update()
+    pygame.quit()
 
 
 run_game()
