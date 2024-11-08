@@ -12,7 +12,6 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 font = pygame.font.Font(None, 30)
 
-
 current_planet = 0
 current_question = 0
 score = 0
