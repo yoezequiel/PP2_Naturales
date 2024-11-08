@@ -31,28 +31,46 @@ questions = [
     {
         "question": "¿Qué es la contaminación cruzada?",
         "options": [
-            "Contaminación del agua",
-            "Contaminación entre alimentos",
-            "Contaminación del aire",
-        ],
-        "correct": 1,
-    },
-    {
-        "question": "¿Cuál es más propenso a la contaminación cruzada?",
-        "options": [
-            "Carne cruda",
-            "Frutas",
-            "Verduras cocidas",
+            "La transferencia de bacterias o alérgenos entre alimentos",
+            "La cocción incompleta de los alimentos",
+            "El exceso de sal en la comida",
         ],
         "correct": 0,
     },
     {
-        "question": "¿Cómo prevenir la contaminación cruzada en la cocina?",
+        "question": "¿Cuál de los siguientes es contaminación cruzada?",
         "options": [
-            "Usando un solo cuchillo",
-            "Separando alimentos crudos y cocidos",
-            "Cocinando todo a la misma temperatura",
+            "Usar diferentes tablas de cortar para carne y vegetales",
+            "Cortar pollo crudo y vegetales en la misma tabla sin lavarla",
+            "Guardar carne y vegetales separados del refrigerador",
         ],
         "correct": 1,
+    },
+    {
+        "question": "¿Cuál práctica ayuda a evitar la contaminación cruzada?",
+        "options": [
+            "Usar utensilios separados para alimentos crudos y cocidos",
+            "Lavar todos los alimentos con jabón",
+            "No lavar las manos mientras se cocina",
+        ],
+        "correct": 0,
+    },
+    {
+        "question": "¿Por qué lavar los utensilios luego de manipular alimentos crudos?",
+        "options": [
+            "Para evitar sabores extraños",
+            "Para evitar la transferencia de bacterias dañinas a otros alimentos",
+            "Para hacer que los utensilios se vean mejor",
+        ],
+        "correct": 1,
+    },
+    {
+        "question": "¿Cuál hábito ayuda a evitar la contaminación cruzada?",
+        "options": [
+            "Lavar las manos después de manipular alimentos crudos",
+            "Usar el mismo paño para limpiar todas las superficies",
+            "Dejar los alimentos cocidos al aire libre",
+        ],
+        "correct": 0,
     },
 ]

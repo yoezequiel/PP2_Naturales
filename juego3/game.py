@@ -107,7 +107,7 @@ def draw_buttons(options, selected_option=None):
             small_font,
             option_color,
             window,
-            100,
+            60,
             start_y + i * (button_height + 10),
         )
 
